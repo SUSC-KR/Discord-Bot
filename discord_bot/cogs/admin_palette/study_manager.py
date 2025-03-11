@@ -1,8 +1,6 @@
 import discord
 from discord.ext import commands
 from discord.commands import slash_command
-from datetime import datetime
-
 
 class StudyManager(commands.Cog):
     def __init__(self, bot):
@@ -10,12 +8,12 @@ class StudyManager(commands.Cog):
 
     @slash_command(description="Create a study room with roles and channels")
     @commands.has_permissions(administrator=True)
-    async def create_study(self, ctx, study_name: str, season: str, category_name: str = None):
+    async def create_study(self, ctx, study_name: str, year: str, season: str, category_name: str = None):
         guild = ctx.guild
         study_name = study_name.upper()
         season = season.upper()
         category_name = category_name.upper()
-        year_short = datetime.now().strftime("%y")
+        year_short = year[-2:]
 
         role_name = f"{year_short}-{season}-{study_name}"
         role = discord.utils.get(guild.roles, name=role_name)
@@ -49,11 +47,11 @@ class StudyManager(commands.Cog):
 
     @slash_command(description="Delete study room and migrate role members")
     @commands.has_permissions(administrator=True)
-    async def delete_study(self, ctx, study_name: str, season: str):
+    async def delete_study(self, ctx, year: str, study_name: str, season: str):
         guild = ctx.guild
         season = season.upper()
-        year_short = datetime.now().strftime("%y")
-        year_long = datetime.now().strftime("%Y")
+        year_short = year[-2:]
+        year_long = year[-4:]
 
         role_name = f"{year_short}-{season}-{study_name}"
         role = discord.utils.get(guild.roles, name=role_name)
