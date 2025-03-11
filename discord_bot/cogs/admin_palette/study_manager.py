@@ -39,7 +39,7 @@ class StudyManager(commands.Cog):
         if not category:
             return await ctx.send(f"'{category_name}' 카테고리가 존재하지 않습니다.")
 
-        await self.delete_category(category, study_name)
+        await self.delete_study_channels_with_study_name(category, study_name)
         season_role = await self.get_or_create_role(guild, season_role_name)
         await self.migrate_members_from_role(guild, category, role_name, season_role)
 
@@ -71,7 +71,7 @@ class StudyManager(commands.Cog):
         await guild.create_text_channel(f"{study_name}-채팅", category=category, overwrites=overwrites)
         await guild.create_voice_channel(f"{study_name}-음성", category=category, overwrites=overwrites)
 
-    async def delete_category(self, category, study_name):
+    async def delete_study_channels_with_study_name(self, category, study_name):
         for channel in category.channels:
             if f"{study_name.lower()}-채팅" in channel.name or f"{study_name.upper()}-음성" in channel.name:
                 await channel.delete()
