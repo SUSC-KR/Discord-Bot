@@ -14,8 +14,7 @@ class CategoryManager(commands.Cog):
         embed = discord.Embed(title="카테고리 목록", color=discord.Color.blue())
         if ctx.guild.categories:
             for category in ctx.guild.categories:
-                embed.add_field(name=category.name, value=f"카테고리 ID: {
-                                category.id}", inline=False)
+                embed.add_field(name=category.name, value=f"카테고리 ID: {category.id}", inline=False)
 
             if len(embed.fields) > 25:
                 embeds = [discord.Embed(
@@ -24,8 +23,7 @@ class CategoryManager(commands.Cog):
                     if i % 25 == 0 and i != 0:
                         embeds.append(discord.Embed(
                             title="카테고리 목록", color=discord.Color.blue()))
-                    embeds[-1].add_field(name=field.name,
-                                         value=field.value, inline=False)
+                    embeds[-1].add_field(name=field.name,value=field.value, inline=False)
                 for page in embeds:
                     await ctx.send(embed=page)
             else:

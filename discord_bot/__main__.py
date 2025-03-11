@@ -22,7 +22,6 @@ if __name__ == "__main__":
             print(f'Successfully loaded extension: {extension}')
 
         except Exception as e:
-            print(f'Failed to load extension {
-                  extension}: {e}', file=sys.stderr)
+            print(f'Failed to load extension {extension}: {e}', file=sys.stderr)
 
     run_bot(bot)
