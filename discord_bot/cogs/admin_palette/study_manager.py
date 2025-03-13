@@ -56,7 +56,7 @@ class StudyManager(commands.Cog):
         await self.delete_study_channels_with_study_name(category, study_name)
         season_role = await self.get_or_create_role(guild, season_role_name)
         await self.migrate_members_from_role(
-            guild, category, role_name, season_role
+            guild, role_name, season_role
         )
 
         await ctx.send(
@@ -112,7 +112,7 @@ class StudyManager(commands.Cog):
                 await channel.delete()
 
     async def migrate_members_from_role(
-        self, guild, category, role_name, new_role
+        self, guild, role_name, new_role
     ):
         role = discord.utils.get(guild.roles, name=role_name)
         if role:

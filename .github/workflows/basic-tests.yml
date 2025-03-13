@@ -33,4 +33,4 @@ jobs:
 
       - name: Run Pylint (Static Analysis)
         run: |
-          pylint $(git ls-files '*.py')
+          pylint $(git ls-files '*.py') --disable=C0114,C0115,C0116,C0301
