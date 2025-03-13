@@ -28,7 +28,14 @@
 ### 서버 관리자(`cogs/server_palette/category_checker.py`)
 | 명령어                          | 설명                                              |
 |---------------------------------|--------------------------------------------------|
+| `/ping`                         | 봇이 살아있는지 확인합니다.                        |
 | `/show_categories`              | 구독 가능한 카테고리 목록을 버튼으로 표시합니다.    |
+
+### 엠베서더 관리자(`cogs/server_palette/ambassador.py`)
+| 명령어                          | 설명                                              |
+|---------------------------------|--------------------------------------------------|
+| `/proof_promo <attachment>`     | 엠베서더 프로모션을 증명하는 이미지를 업로드합니다. |
+| `/monthly_ranking`			  | 엠베서더의 월간 랭킹을 표시합니다.                |
 
 
 ## 이 프로젝트에 기여하기
@@ -54,7 +61,7 @@ pip install -r requirements.txt
 ```
 4. 봇실행
 ```bash
-python Distcord-Bot
+python -m discord_bot
 ```
 
 
