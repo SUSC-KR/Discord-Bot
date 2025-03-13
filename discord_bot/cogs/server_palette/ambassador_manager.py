@@ -24,9 +24,9 @@ class AmbassadorManager(commands.Cog):
             "attachment",
             discord.Attachment,
             description="메세지에 홍보 인증 이미지를 첨부하여 제출합니다.",
-            required=False,
+            required=True,
         )
-	async def proof_promo(self, interaction, attachment: discord.Attachment):
+	async def proof_promo(self, interaction, attachment: discord.Attachment, attachment1: discord.Attachment = None, attachment2: discord.Attachment = None):
 		"""
 		홍보 인증을 제출하는 명령어입니다.
 		"""
@@ -46,9 +46,8 @@ class AmbassadorManager(commands.Cog):
 		)
 		conn.commit()
 
-
 		await interaction.response.send_message(
-			f"{interaction.user.mention}님이 홍보 인증을 제출했습니다: {attachment.url}"
+			f"{interaction.user.mention}님이 홍보 인증을 제출했습니다: {attachment.url} {attachment1.url if attachment1 else ''} {attachment2.url if attachment2 else ''}"
 		)
 
 	@slash_command(guild_ids=GUILD_ID, description="이번 달 앰베서더 랭킹을 확인합니다.")
