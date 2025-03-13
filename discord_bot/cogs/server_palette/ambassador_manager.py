@@ -1,10 +1,11 @@
-import discord
 import sqlite3
 import datetime
-from discord import option
+
+import discord
 from discord.ext import commands, tasks
+from discord.commands import slash_command, option
+
 from discord_bot.config import GUILD_ID
-from discord.commands import slash_command
 
 conn = sqlite3.connect("./db/ambassacor.db")
 cursor = conn.cursor()

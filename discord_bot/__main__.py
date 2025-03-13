@@ -1,6 +1,6 @@
-import discord
 import sys
 import os
+import discord
 from discord_bot.config import EXTENSIONS
 from discord_bot.bot import run_bot
 
