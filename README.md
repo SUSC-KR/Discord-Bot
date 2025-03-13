@@ -31,7 +31,7 @@
 | `/ping`                         | 봇이 살아있는지 확인합니다.                        |
 | `/show_categories`              | 구독 가능한 카테고리 목록을 버튼으로 표시합니다.    |
 
-### 엠베서더 관리자(`cogs/server_palette/ambassador.py`)
+### 엠베서더 관리자(`cogs/server_palette/ambassador_manager.py`)
 | 명령어                          | 설명                                              |
 |---------------------------------|--------------------------------------------------|
 | `/proof_promo <attachment>`     | 엠베서더 프로모션을 증명하는 이미지를 업로드합니다. |
