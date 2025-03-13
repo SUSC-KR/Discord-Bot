@@ -4,6 +4,7 @@ from discord.commands import slash_command
 
 from discord_bot.config import GUILD_ID
 
+
 class CategoryManager(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
