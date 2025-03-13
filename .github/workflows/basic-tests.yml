@@ -29,7 +29,7 @@ jobs:
 
       - name: Run Flake8 (Linting)
         run: |
-          flake8 . --count --show-source --statistics
+          flake8 . --count --show-source --statistics --max-line-length=120
 
       - name: Run Pylint (Static Analysis)
         run: |
