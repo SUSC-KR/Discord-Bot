@@ -1,0 +1,11 @@
+# Core
+/discord_bot/ @choo121600
+/discord_bot/cogs/ @choo121600
+
+
+# Dev tools
+/.github/workflows/ @choo121600
+Dockerfile @choo121600
+docker-compose.yml @choo121600
+
+# Documentation
