@@ -88,6 +88,57 @@ pip install -r requirements.txt
 ```
 4. 봇실행
 ```bash
-python Distcord-Bot
+python -m discord_bot
 ```
 
+## 코드 가이드라인
+
+### 목적
+
+이 프로젝트는 Flake8과 Pylint를 활용하여 코드 품질을 유지하고 스타일을 표준화합니다. 위 설정을 준수하여 코드 작성 시 일관성을 유지하고, 자동화된 검사를 통해 코드 품질을 향상시키고 있습니다.
+
+### Flake8 (Linting)
+
+Flake8은 Python 스타일 가이드 준수를 검사하는 도구입니다.
+
+```sh
+flake8 ./discord_bot --count --show-source --statistics --max-line-length=120
+```
+
+#### 주요 검사 항목
+- 최대 줄 길이는 120자로 제한됩니다.
+- 사용되지 않는 변수를 허용하지 않습니다.
+- 들여쓰기나 공백 관련 스타일 오류를 방지합니다.
+
+#### 주로 실패하는 사례
+
+- 너무 긴 줄 (E501): 한 줄에 120자를 초과하는 경우
+- 사용되지 않는 변수 (F841): 정의했지만 사용하지 않은 변수
+- 들여쓰기 오류 (E111, E114): 잘못된 들여쓰기
+
+### Pylint (Static Analysis)
+
+Pylint는 코드의 품질을 분석하고 잠재적인 오류를 찾는 정적 분석 도구입니다.
+
+```sh
+pylint ./discord_bot --disable=C0114,C0115,C0116,C0301,W0718,R0913,R0917
+```
+
+#### 설정 설명
+- 허용 항목
+  - `C0114`: 모듈에 docstring이 없음
+  - `C0115`: 클래스에 docstring이 없음
+  - `C0116`: 함수 또는 메서드에 docstring이 없음
+  - `C0301`: 한 줄에 100자를 초과하는 경우
+  - `W0718`: 일반적인 예외(Exception) 사용 경고
+  - `R0913`: 너무 많은 인자를 받는 함수 또는 메서드
+  - `R0917`: 너무 많은 위치 인자를 받는 함수 또는 메서드
+
+### 정적 분석 및 스타일 검사 실행 방법
+
+터미널에서 다음 명령어를 실행하면 Flake8과 Pylint 검사를 수행할 수 있습니다.
+
+```sh
+flake8 ./discord_bot --count --show-source --statistics --max-line-length=120
+pylint ./discord_bot --disable=C0114,C0115,C0116,C0301,W0718,R0913,R0917
+```

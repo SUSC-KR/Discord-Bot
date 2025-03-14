@@ -1,2 +1,4 @@
 python-dotenv==1.0.0
 py-cord==2.6.1
+flake8==7.1.2
+pylint==3.3.5
