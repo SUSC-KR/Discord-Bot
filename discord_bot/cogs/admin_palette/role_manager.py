@@ -25,7 +25,7 @@ class RoleManager(commands.Cog):
                 f"{member.name}님에게 {role.name} 역할을 추가했습니다."
             )
 
-    @slash_command(discription="remove a role from a user", guild_id=GUILD_ID)
+    @slash_command(description="remove a role from a user", guild_id=GUILD_ID)
     @commands.has_permissions(administrator=True)
     async def remove_role(
         self, ctx, member: discord.Member, role: discord.Role
