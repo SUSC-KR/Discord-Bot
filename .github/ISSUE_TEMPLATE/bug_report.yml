@@ -23,7 +23,7 @@ body:
       label: 재현 방법
       description: >
         어떻게 하면 이 문제를 재현할 수 있나요?
-        만약 재현 가능한 사례를 제공할 수 없다면,[discussion](https://github.com/SUSC-KR/Dev-Event-Crawler/discussions)을 열어주세요.
+        만약 재현 가능한 사례를 제공할 수 없다면,[discussion](https://github.com/SUSC-KR/Discord-Bot/discussions)을 열어주세요.
       placeholder: >
         가능한 한 최소한의 단계로 문제를 재현할 수 있도록 설명해주세요.
     validations:
