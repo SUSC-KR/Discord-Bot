@@ -30,9 +30,9 @@ body:
       required: true
   - type: checkboxes
     attributes:
-      label: PR을 직접 해볼 의샹이 있나요?
+      label: PR을 직접 해볼 의향이 있나요?
       options:
-        - label: 네, 저는 직접 PR을 할 의샹이 있습니다!
+        - label: 네, 저는 직접 PR을 할 의향이 있습니다!
   - type: checkboxes
     attributes:
       label: Code of Conduct
