@@ -72,73 +72,106 @@ SUSC의 오픈소스 프로젝트에 기여할 때 간단한 버그에 대한 �
 2. fork한 저장소를 clone합니다.
 
 ```bash
-git clone https://github.com/SUSC-KR/Discord-Bot.git
+git clone https://github.com/[your-github-id]/Discord-Bot.git
 cd Discord-Bot
 ```
 
-2. 가상환경 생성 및 활성화
+3. 가상환경 생성 및 활성화
 ```bash
 python -m venv venv
 source venv/bin/activate
 ```
 
-3. 의존성 설치
+4. 의존성 설치
 ```bash
 pip install -r requirements.txt
 ```
-4. 봇실행
+5. 봇실행
 ```bash
 python -m discord_bot
+```
+
+## 프로젝트 실행하기 (`uv` 사용)
+
+1. uv 설치
+
+```bash
+# With pip.
+pip install uv
+
+# With Homebrew.
+brew install uv
+```
+
+2. 저장소 포크 && 클론
+
+```bash
+git clone https://github.com/[your-github-id]/Discord-Bot.git
+cd Discord-Bot
+```
+
+3. 가상환경 venv 추가 및 의존성 설치
+
+```bash
+uv sync
+```
+
+4. 봇 실행
+
+```bash
+uv run -m discord_bot
 ```
 
 ## 코드 가이드라인
 
 ### 목적
 
-이 프로젝트는 Flake8과 Pylint를 활용하여 코드 품질을 유지하고 스타일을 표준화합니다. 위 설정을 준수하여 코드 작성 시 일관성을 유지하고, 자동화된 검사를 통해 코드 품질을 향상시키고 있습니다.
+이 프로젝트는 `ruff`를 활용하여 코드 품질을 유지하고 스타일을 표준화합니다.  
+`ruff.toml` 설정을 기준으로 일관된 코드를 작성하며, 자동화된 검사를 통해 코드 품질과 유지보수성을 향상시키고 있습니다.
 
-### Flake8 (Linting)
+### Ruff (Linting & Formatting)
 
-Flake8은 Python 스타일 가이드 준수를 검사하는 도구입니다.
-
-```sh
-flake8 ./discord_bot --count --show-source --statistics --max-line-length=120
-```
-
-#### 주요 검사 항목
-- 최대 줄 길이는 120자로 제한됩니다.
-- 사용되지 않는 변수를 허용하지 않습니다.
-- 들여쓰기나 공백 관련 스타일 오류를 방지합니다.
-
-#### 주로 실패하는 사례
-
-- 너무 긴 줄 (E501): 한 줄에 120자를 초과하는 경우
-- 사용되지 않는 변수 (F841): 정의했지만 사용하지 않은 변수
-- 들여쓰기 오류 (E111, E114): 잘못된 들여쓰기
-
-### Pylint (Static Analysis)
-
-Pylint는 코드의 품질을 분석하고 잠재적인 오류를 찾는 정적 분석 도구입니다.
+[Ruff](https://docs.astral.sh/ruff/)는 Python 코드 린팅과 스타일 검사, 포매팅까지 지원하는 빠르고 강력한 도구입니다.  
+기존의 `flake8`, `pylint`, `isort`, `pyupgrade` 기능을 통합하여 한 번에 검사할 수 있습니다.
 
 ```sh
-pylint ./discord_bot --disable=C0114,C0115,C0116,C0301,W0718,R0913,R0917
+ruff check ./discord_bot
+ruff format ./discord_bot
 ```
 
-#### 설정 설명
-- 허용 항목
-  - `C0114`: 모듈에 docstring이 없음
-  - `C0115`: 클래스에 docstring이 없음
-  - `C0116`: 함수 또는 메서드에 docstring이 없음
-  - `C0301`: 한 줄에 100자를 초과하는 경우
-  - `W0718`: 일반적인 예외(Exception) 사용 경고
-  - `R0913`: 너무 많은 인자를 받는 함수 또는 메서드
-  - `R0917`: 너무 많은 위치 인자를 받는 함수 또는 메서드
+#### 주요 검사 항목 (`ruff.toml` 기준)
+
+| 검사 코드 그룹 | 설명 |
+|----------------|------|
+| **E (pycodestyle)** | 공백, 줄바꿈, 들여쓰기 등 스타일 관련 규칙 검사 |
+| **F (pyflakes)** | 정의되지 않은 변수, 사용되지 않는 변수 등 오류 검사 |
+| **B (flake8-bugbear)** | 잠재적 버그, 비효율적인 코드 감지 |
+| **I (isort)** | `import` 순서 및 그룹 정렬 |
+| **UP (pyupgrade)** | Python 3.12에 맞춰 구식 문법을 최신 문법으로 교체 가능 여부 확인 |
+
+#### 스타일 기준
+
+- **최대 줄 길이**: 120자 (`line-length = 120`)
+- **Python 버전**: 3.12 기준 검사 (`target-version = "py312"`)
+- **문자열 포맷**: `"double quote"` 사용 (`quote-style = "double"`)
+
+#### 자주 발생하는 검사 실패 예시
+
+- **E501**: 한 줄에 120자를 초과한 경우
+- **F841**: 선언만 하고 사용하지 않은 변수
+- **B006**: mutable default argument 사용
+- **I001**: import 순서가 기준에 맞지 않음
+- **UP032**: f-string으로 바꿀 수 있는 `.format()` 문법
 
 ### 정적 분석 및 스타일 검사 실행 방법
 
-터미널에서 다음 명령어를 실행하면 Flake8과 Pylint 검사를 수행할 수 있습니다.
+```bash
+# 코드 스타일 및 린팅 검사
+ruff check ./discord_bot
 
-```sh
-flake8 ./discord_bot --count --show-source --statistics --max-line-length=120
-pylint ./discord_bot --disable=C0114,C0115,C0116,C0301,W0718,R0913,R0917
+# 오류 자동 수정
+ruff check ./discord_bot --fix
+
+# 코드 자동 포맷
+ruff format ./discord_bot
 ```

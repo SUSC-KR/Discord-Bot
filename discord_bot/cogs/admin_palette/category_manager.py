@@ -1,6 +1,6 @@
 import discord
-from discord.ext import commands
 from discord.commands import slash_command
+from discord.ext import commands
 
 from discord_bot.config import GUILD_ID
 
@@ -22,11 +22,7 @@ class CategoryManager(commands.Cog):
                 )
 
             if len(embed.fields) > 25:
-                embeds = [
-                    discord.Embed(
-                        title="카테고리 목록", color=discord.Color.blue()
-                    )
-                ]
+                embeds = [discord.Embed(title="카테고리 목록", color=discord.Color.blue())]
                 for i, field in enumerate(embed.fields):
                     if i % 25 == 0 and i != 0:
                         embeds.append(
@@ -35,9 +31,7 @@ class CategoryManager(commands.Cog):
                                 color=discord.Color.blue(),
                             )
                         )
-                    embeds[-1].add_field(
-                        name=field.name, value=field.value, inline=False
-                    )
+                    embeds[-1].add_field(name=field.name, value=field.value, inline=False)
                 for page in embeds:
                     await ctx.send(embed=page)
             else:
@@ -61,14 +55,10 @@ class CategoryManager(commands.Cog):
             role = await guild.create_role(name=upper_name)
 
             overwrites = {
-                guild.default_role: discord.PermissionOverwrite(
-                    view_channel=False
-                ),
+                guild.default_role: discord.PermissionOverwrite(view_channel=False),
                 role: discord.PermissionOverwrite(view_channel=True),
             }
-            category = await guild.create_category(
-                name=upper_name, overwrites=overwrites
-            )
+            category = await guild.create_category(name=upper_name, overwrites=overwrites)
             await guild.create_text_channel("자유", category=category)
             await guild.create_voice_channel("라운지", category=category)
 
@@ -97,9 +87,7 @@ class CategoryManager(commands.Cog):
             if role:
                 await role.delete()
 
-            await ctx.send(
-                f"'{category_name}' 카테고리와 포함된 모든 채널, 역할이 삭제되었습니다."
-            )
+            await ctx.send(f"'{category_name}' 카테고리와 포함된 모든 채널, 역할이 삭제되었습니다.")
         except discord.DiscordException as e:
             await ctx.send(f"오류가 발생했습니다: {str(e)}")
 

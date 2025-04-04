@@ -1,0 +1,10 @@
+# ruff.toml
+line-length = 120
+target-version = "py312"
+
+[lint]
+select = ["E", "F", "B", "I", "UP"]
+ignore = []
+
+[format]
+quote-style = "double"

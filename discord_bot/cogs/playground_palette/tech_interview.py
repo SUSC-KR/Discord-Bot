@@ -1,11 +1,11 @@
+import csv
 import os
 import random
 import re
-import csv
 
 import discord
-from discord.ext import commands
 from discord.commands import slash_command
+from discord.ext import commands
 
 
 class TechInterview(commands.Cog):
@@ -18,23 +18,17 @@ class TechInterview(commands.Cog):
         Tech-Interview-Questions 폴더에서 랜덤으로 인터뷰 질문을 가져옵니다.
         """
 
-        project_root = os.path.abspath(
-            os.path.join(os.path.dirname(__file__), "../../../")
-        )
+        project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
         questions_dir = os.path.join(project_root, "Tech-Interview-Questions")
 
         company_folders = self.get_company_folders(questions_dir)
 
         if not company_folders:
-            await ctx.send(
-                "Tech-Interview-Questions 폴더에 유효한 회사 폴더가 없습니다."
-            )
+            await ctx.send("Tech-Interview-Questions 폴더에 유효한 회사 폴더가 없습니다.")
             return
 
         company_name = random.choice(company_folders)
-        questions_file_path = os.path.join(
-            questions_dir, company_name, "questions.csv"
-        ).strip()
+        questions_file_path = os.path.join(questions_dir, company_name, "questions.csv").strip()
 
         if not os.path.exists(questions_file_path):
             await ctx.send(f"{company_name}에 대한 질문이 없습니다.")
@@ -56,9 +50,7 @@ class TechInterview(commands.Cog):
         return [
             f
             for f in os.listdir(questions_dir)
-            if os.path.isdir(os.path.join(questions_dir, f))
-            and re.match(r"^[^\\]+$", f)
-            and not f.startswith(".")
+            if os.path.isdir(os.path.join(questions_dir, f)) and re.match(r"^[^\\]+$", f) and not f.startswith(".")
         ]
 
     def load_questions_from_csv(self, file_path):

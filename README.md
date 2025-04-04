@@ -84,10 +84,53 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-4. 봇실행
+4. 봇 실행
 
 ```bash
 python -m discord_bot
+```
+
+## 실행 방법 (`uv` 사용)
+
+1. uv 설치
+
+```bash
+# With pip.
+pip install uv
+
+# With Homebrew.
+brew install uv
+```
+
+2. 저장소 클론
+
+```bash
+git clone https://github.com/SUSC-KR/Discord-Bot.git
+cd Discord-Bot
+```
+
+3. 가상환경 venv 추가 및 의존성 설치
+
+```bash
+uv sync
+```
+
+4. 봇 실행
+
+```bash
+uv run -m discord_bot
+```
+
+5. ruff 검사
+```bash
+# 코드 스타일 및 린팅 검사
+ruff check ./discord_bot
+
+# 오류 자동 수정
+ruff check ./discord_bot --fix
+
+# 코드 자동 포맷
+ruff format ./discord_bot
 ```
 
 ## 라이선스

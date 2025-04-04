@@ -1,7 +1,9 @@
 import os
 import sqlite3
-from discord.ext import commands
+
 from discord.commands import slash_command
+from discord.ext import commands
+
 from discord_bot.config import GUILD_ID
 
 os.makedirs("./db", exist_ok=True)
@@ -42,7 +44,7 @@ class NewsManager(commands.Cog):
             await ctx.respond("아직 저장된 뉴스가 없습니다.")
             return
 
-        message = "\n".join([f"{idx+1}. {url}" for idx, (url,) in enumerate(rows)])
+        message = "\n".join([f"{idx + 1}. {url}" for idx, (url,) in enumerate(rows)])
 
         if len(message) > 100:
             await ctx.respond("링크가 너무 많아 일부 생략됩니다.")

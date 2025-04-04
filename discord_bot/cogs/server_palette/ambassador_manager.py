@@ -1,9 +1,9 @@
-import sqlite3
 import datetime
+import sqlite3
 
 import discord
+from discord.commands import option, slash_command
 from discord.ext import commands, tasks
-from discord.commands import slash_command, option
 
 from discord_bot.config import GUILD_ID
 
@@ -61,9 +61,7 @@ class AmbassadorManager(commands.Cog):
             f"{attachment2.url if attachment2 else ''}"
         )
 
-    @slash_command(
-        guild_ids=GUILD_ID, description="이번 달 앰베서더 랭킹을 확인합니다."
-    )
+    @slash_command(guild_ids=GUILD_ID, description="이번 달 앰베서더 랭킹을 확인합니다.")
     @commands.has_any_role("엠베서더", "운영진")
     async def monthly_ranking(self, interaction):
         """
@@ -121,9 +119,7 @@ class AmbassadorManager(commands.Cog):
                 for name, count in rankings:
                     if count != previous_count:
                         display_rank = current_rank + 1
-                    ranking_message += (
-                        f"**{display_rank}위** - {name}: {count}회\n"
-                    )
+                    ranking_message += f"**{display_rank}위** - {name}: {count}회\n"
                     previous_count = count
                     current_rank += 1
 

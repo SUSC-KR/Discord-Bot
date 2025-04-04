@@ -41,9 +41,7 @@ class ServerManager(commands.Cog):
             "엠베서더",
         ]
 
-    @slash_command(
-        guild_ids=GUILD_ID, description="Check the category"
-    )
+    @slash_command(guild_ids=GUILD_ID, description="Check the category")
     @commands.has_permissions(administrator=True)
     async def show_categories(self, ctx):
         guild = ctx.guild
@@ -63,9 +61,7 @@ class ServerManager(commands.Cog):
                     label=category.name,
                     style=discord.ButtonStyle.primary,
                 )
-                button.callback = self.ambassador_callback(
-                    ctx, category
-                )
+                button.callback = self.ambassador_callback(ctx, category)
                 view.add_item(button)
 
         await ctx.send(
@@ -75,9 +71,7 @@ class ServerManager(commands.Cog):
 
     def create_callback(self, ctx, category):
         async def callback(interaction):
-            role = discord.utils.get(
-                ctx.guild.roles, name=category.name
-            )
+            role = discord.utils.get(ctx.guild.roles, name=category.name)
             if not role:
                 role = await ctx.guild.create_role(name=category.name)
 
@@ -98,9 +92,7 @@ class ServerManager(commands.Cog):
 
     def ambassador_callback(self, ctx, category):
         async def callback(interaction):
-            role = discord.utils.get(
-                ctx.guild.roles, name=category.name
-            )
+            role = discord.utils.get(ctx.guild.roles, name=category.name)
             if not role:
                 role = await ctx.guild.create_role(name=category.name)
 
