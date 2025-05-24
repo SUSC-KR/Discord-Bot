@@ -11,12 +11,15 @@ class StudyManager(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def create_study(
         self,
-        ctx,
+        ctx: discord.ApplicationContext,
         study_name: str,
         year: str,
         season: str,
         category_name: str = None,
     ):
+        # 처리가 3초 이상 걸릴 수 있기 때문에 `defer`를 사용하여 timeout을 방지합니다.
+        await ctx.defer()
+
         guild = ctx.guild
         study_name = study_name.upper()
         season = season.upper()
@@ -26,16 +29,25 @@ class StudyManager(commands.Cog):
         role_name = f"{year_short}-{season}-{study_name}"
 
         if await self.role_exists(guild, role_name):
-            return await ctx.send(f"'{role_name}' 역할이 이미 존재합니다.")
+            return await ctx.edit(f"'{role_name}' 역할이 이미 존재합니다.")
 
         category = await self.get_or_create_category(guild, category_name, role_name)
         await self.create_study_channels(guild, category, study_name, role_name)
 
-        await ctx.send(f"'{role_name}' 스터디 역할과 채널이 생성되었습니다.")
+        await ctx.interaction.edit_original_response(content=f"'{role_name}' 스터디 역할과 채널이 생성되었습니다.")
 
     @slash_command(description="Delete study room and migrate role members")
     @commands.has_permissions(administrator=True)
-    async def delete_study(self, ctx, year: str, study_name: str, season: str, category_name: str):
+    async def delete_study(
+        self,
+        ctx: discord.ApplicationContext,
+        year: str,
+        study_name: str,
+        season: str,
+        category_name: str
+    ):
+        await ctx.defer()
+
         guild = ctx.guild
         season = season.upper()
         year_short, year_long = year[-2:], year[-4:]
@@ -45,15 +57,14 @@ class StudyManager(commands.Cog):
 
         category = discord.utils.get(guild.categories, name=category_name)
         if not category:
-            return await ctx.send(f"'{category_name}' 카테고리가 존재하지 않습니다.")
+            return await ctx.edit(content=f"'{category_name}' 카테고리가 존재하지 않습니다.")
 
         await self.delete_study_channels_with_study_name(category, study_name)
         season_role = await self.get_or_create_role(guild, season_role_name)
         await self.migrate_members_from_role(guild, role_name, season_role)
 
-        await ctx.send(
-            f"'{category_name}' 카테고리와 관련된 스터디 룸과 역할이 삭제되고, 멤버가 '{season_role_name}' 역할로 이동되었습니다."
-        )
+        success_message = f"'{category_name}' 카테고리와 관련된 스터디 룸과 역할이 삭제되고, 멤버가 '{season_role_name}' 역할로 이동되었습니다."
+        await ctx.edit(content=success_message)
 
     async def role_exists(self, guild, role_name):
         return discord.utils.get(guild.roles, name=role_name) is not None
