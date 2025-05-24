@@ -2,6 +2,7 @@ import discord
 from discord.commands import slash_command
 from discord.ext import commands
 
+
 class StudyManager(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
